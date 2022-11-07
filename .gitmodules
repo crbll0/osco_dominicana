@@ -12,3 +12,8 @@
 	path = indexa-git/l10n-dominicana
 	url = git@github.com:indexa-git/l10n-dominicana.git
 	branch = 15.0
+
+[submodule "OCA/server-tools"]
+	path = OCA/server-tools
+	url = git@github.com:OCA/server-tools.git
+	branch = 15.0
