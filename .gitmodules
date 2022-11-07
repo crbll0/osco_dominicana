@@ -7,3 +7,8 @@
 	path = crbll0/growit_employee
 	url = git@github.com:crbll0/growit_employee.git
 	branch = 15.0
+
+[submodule "indexa-git/l10n-dominicana"]
+	path = indexa-git/l10n-dominicana
+	url = git@github.com:indexa-git/l10n-dominicana.git
+	branch = 15.0
