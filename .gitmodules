@@ -2,3 +2,8 @@
 	path = crbll0/growit_account
 	url = git@github.com:crbll0/growit_account.git
 	branch = 15.0
+
+[submodule "crbll0/growit_employee"]
+	path = crbll0/growit_employee
+	url = git@github.com:crbll0/growit_employee.git
+	branch = 15.0
