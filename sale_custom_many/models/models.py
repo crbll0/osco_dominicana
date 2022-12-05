@@ -19,7 +19,7 @@ class AccounMoveLines(models.Model):
     name = fields.Char("Descripción")
     qty = fields.Float("Cantidad")
     price_unit = fields.Float("Precio Unitario")
-    
+    product_uom_id = fields.Many2one('uom.uom', string='Unit of Measure', domain="[('category_id', '=', product_uom_category_id)]", ondelete="restrict")
     tax_ids = fields.Many2many(
         comodel_name='account.tax',
         string="Taxes",
@@ -58,6 +58,7 @@ class SaleOrder(models.Model):
                     'price_total': 0.0,
                     'price_subtotal': rec.price_subtotal,
                     'display_type': rec.display_type,
+                    'product_uom_id': rec.product_uom.id,
                 }))
         res['invoice_lines_report'] = lines
         return res
