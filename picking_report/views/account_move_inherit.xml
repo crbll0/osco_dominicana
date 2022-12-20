@@ -1,0 +1,12 @@
+<odoo>
+    <!-- <record id="inherited_picking_view_form" model="ir.ui.view"> -->
+    <!-- <field name="name">inherited.picking.form.inherit.test</field> -->
+    <!-- <field name="model">stock.picking</field> -->
+    <!-- <field name="inherit_id" ref="stock.view_picking_form"/> -->
+    <!-- <field name="arch" type="xml"> -->
+        <!-- <xpath expr="//field[@name='date_done']" position="after"> -->
+          <!-- <field name="hora_actual" invisible="1"/> -->
+        <!-- </xpath> -->
+    <!-- </field> -->
+   <!-- </record> -->
+</odoo>

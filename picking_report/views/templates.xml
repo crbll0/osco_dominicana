@@ -1,0 +1,59 @@
+<odoo>
+  <data>
+    <template id="report_picking_pdf">
+      <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="self">
+          <t t-call="web.basic_layout">
+           <div class="page" style="font-size: 12px;">
+            
+              <div class="text-center">
+                <span class="text-center">CONDUCE</span>
+              </div><br/>
+              <div t-esc="self.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;, &quot;phone&quot;], &quot;no_marker&quot;: True}"/>
+              <div>
+              HORA: <span t-esc="datetime.datetime.now().strftime('%H:%M:%S')"/>
+              </div>
+              <div>
+		Fecha de envío: <span t-if="self.date_done" t-esc="datetime.datetime.date(self.date_done).strftime('%d/%m/%Y')"/><span t-else="" t-esc="datetime.datetime.date(self.scheduled_date).strftime('%d/%m/%Y')"/>
+              </div>
+            <!-- </div> -->
+                  <!-- <div class="text-center" t-if="self.l10n_latam_document_type_id" style="border-top: 2px dashed black; border-bottom: 2px dashed black;"> -->
+                    <!-- <b>Factura de <span t-field="self.l10n_latam_document_type_id.name"/></b> -->
+                  <!-- </div> -->.
+              <table class="sm" width="100%">
+                <!-- <thead> -->
+                  <tr>
+                    <th scope="col" width="50%">Producto</th>
+                    <th scope="col">Cant.</th>
+                    <th scope="col">ubic. 1</th>
+                    <th scope="col">ubic. 2</th>
+                  </tr>
+                <!-- </thead> -->
+                <tbody>
+                  <t t-foreach="self.move_lines" t-as="order">
+                    <tr>
+                      <td>
+                        <span t-field="order.product_id"/>
+                        <p t-if="order.description_picking != order.product_id.name">
+                            <t t-esc="order.description_picking"/>
+                        </p>
+                      </td>
+                      <td>
+                          <t t-esc="order.product_uom_qty"/>
+                      </td>
+                      <td ><t t-esc="order.product_id.ubication_1"/></td>
+                      <td ><t t-esc="order.product_id.ubication_2"/></td>
+                    </tr>	
+                  </t>
+                </tbody>
+              </table>
+
+              <br/>
+              <br/>
+            </div>
+          </t>
+        </t>
+      </t>
+    </template>
+  </data>
+</odoo>
