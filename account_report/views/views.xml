@@ -1,0 +1,12 @@
+<odoo>
+  <data>
+    <report
+      id="basic_layout"
+      model="account.move"
+      string="Factura etiqueta"
+      report_type="qweb-pdf"
+      name="account_report.report_account_pdf"
+      paperformat="custom_paperformat_id"
+    />
+  </data>
+</odoo>

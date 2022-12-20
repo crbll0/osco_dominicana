@@ -1,0 +1,12 @@
+<odoo>
+  <data>
+    <report
+      id="basic_layout_picking"
+      model="stock.picking"
+      string="Conduce etiqueta"
+      report_type="qweb-pdf"
+      name="picking_report.report_picking_pdf"
+      paperformat="custom_paperformat_id"
+    />
+  </data>
+</odoo>

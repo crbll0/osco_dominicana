@@ -1,0 +1,80 @@
+<odoo>
+  <data>
+    <template id="report_account_pdf">
+      <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="self">
+          <t t-call="web.basic_layout">
+	<!-- <div class="header"> -->
+          		<!-- <div class="row"> -->
+          		<!-- </div> -->
+          	<!-- </div> -->
+            <div class="page" style="font-size: 12px;">
+            
+              <div class="text-center">
+                <div>
+                  <img alt="img-logo" style="max-height: 120px; max-width: 120px;" t-att-src="'data:image/png;base64,%s' % to_text(self.company_id.logo)"/>
+                </div>
+                RNC: <span t-field="self.company_id.vat"/><br/>
+                FECHA: <span t-field="self.invoice_date"/>
+                <address t-field="self.company_id.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;, &quot;phone&quot;, &quot;vat&quot;], &quot;no_marker&quot;: True}"/>             
+              </div>
+              <div class="row mt25 mb25" style="margin-left:1px;">
+              <div>
+                  RNC: <span t-field="self.partner_id.vat"/><br/>
+                <div t-if="self.l10n_latam_document_number">
+                  NCF: <span t-field="self.l10n_latam_document_number"/>
+                </div>
+                <span t-esc="self.partner_id.name"/><br/>
+              </div>
+                    <div class="col-auto mw-100 mb-2">
+                        HORA: <span t-esc="datetime.datetime.now().strftime('%H:%M:%S')"/>
+                    </div>
+                  </div>
+                  <div class="text-center" t-if="self.l10n_latam_document_type_id" style="border-top: 2px dashed black; border-bottom: 2px dashed black;">
+                    <b>Factura de <span t-field="self.l10n_latam_document_type_id.name"/></b>
+                  </div>
+              <table class="sm">
+                <!-- <thead> -->
+                  <tr>
+                    <th scope="col">Productos</th>
+                    <th scope="col" class="pr-3">Cant.</th>
+                    <th scope="col">Subtotal</th>
+                  </tr>
+                <!-- </thead> -->
+                <tbody>
+                  <t t-foreach="self.invoice_line_ids" t-as="order">
+                    <tr>
+                      <td><t t-esc="order.name"/></td>
+                      <td class="text-right pr-3"><t t-esc="order.quantity"/></td>
+                      <td class="text-right"><t t-esc="order.price_subtotal" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 2}"/></td>
+                    </tr>	
+                  </t>
+                </tbody>
+              </table>
+
+              <br/>
+              <br/>
+			
+            <div class="text-right">
+              <span><b>Subtotal:</b> <t t-esc="self.amount_untaxed" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 2}"/></span><br/>
+              <span><b>Total ITBIS:</b> <t t-esc="self.amount_tax" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 2}"/></span><br/>
+              <span><b>Total a PAGAR:</b> <t t-esc="self.amount_total" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 2}"/></span><br/>
+              <span><b>---------------------------------</b></span><br/>
+			  
+            </div>
+ 			<p class="footer text-center mt-3" style="font-size: 12px;">
+				www.novomat.com.do
+				Síguenos en nuestra redes sociales:
+				Instagram @novomat
+				Facebook @novomat
+				Twitter @novomatMM
+			  </p>                
+
+
+            </div>
+          </t>
+        </t>
+      </t>
+    </template>
+  </data>
+</odoo>
