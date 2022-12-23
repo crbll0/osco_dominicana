@@ -1,0 +1,5 @@
+<odoo>
+    <record id="account.report_invoice" model="ir.actions.report"> 
+       <field name="paperformat_id" ref="custom_reports_modifications.custom_format_account_modify"/> 
+    </record> 
+</odoo>

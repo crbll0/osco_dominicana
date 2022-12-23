@@ -1,0 +1,171 @@
+<odoo>
+    <report
+      id="purchase_layout"
+      model="purchase.order"
+      string="Orden de compra 2/m"
+      report_type="qweb-pdf"
+      name="custom_reports_modifications.purchase_medium_inherit"
+      paperformat="custom_format_account_modify"
+    />
+	<template id="purchase_medium_inherit">
+		 <t t-call="web.html_container">
+       	 <t t-foreach="docs" t-as="self">
+          <t t-call="web.basic_layout">
+            <div class="header">
+            <div class="row">
+                <div class="col-3 mb4">
+                    <img t-if="self.company_id.logo" t-att-src="image_data_uri(self.company_id.logo)" style="max-height: 94px;" alt="Logo"/>
+                </div>
+                <div class="row" style="margin-left: -75px; font-size: 14px;">
+                  <div class="col-" name="company_address">
+                    <div t-field="self.company_id.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"/>
+                  </div>
+                   <!-- Fiscal info -->
+                  <div class="col-7" style="margin-left: 12px; margin-top: -6px;">
+                    <h2 style="color: #f47c44" t-if="self.l10n_latam_document_number">
+                        <span t-field="self.l10n_latam_document_type_id.report_name"/>
+                    </h2>
+                    <strong t-if="self.l10n_latam_use_documents" style="font-size: 14px;">
+                        <t t-if="self.is_ecf_invoice">e-NCF:</t>
+                        <t t-if="self.l10n_latam_document_number">NCF:</t>
+                    </strong>
+                    <span t-if="self.l10n_latam_use_documents" t-field="self.l10n_latam_document_number"/>
+                    <br/>
+                    <span t-if="(self.move_type == 'out_refund' or self.move_type == 'in_refund' or self.debit_origin_id) and (self.l10n_do_origin_ncf != False)">
+                        <strong>NCF modificado:</strong>
+                        <span t-field="self.l10n_do_origin_ncf"/>
+                        <t t-if="ecf_representation">
+                            <br/>
+                            <strong>Código Modificación:</strong>
+                            <span t-field="self.l10n_do_ecf_modification_code"/>
+                        </t>
+                        <br/>
+                    </span>
+                    <span id="fiscal_exp_date" t-if="self.l10n_latam_use_documents                           and self.move_type in ['out_invoice', 'out_refund']                           and self.state == 'posted'                           and self.l10n_latam_document_number                           and self.l10n_latam_document_type_id                           and self.l10n_latam_document_type_id.doc_code_prefix[1:] not in ('32', '34', '02')">
+                        <strong>
+                            <t t-if="self.is_ecf_invoice">Vencimiento e-NCF:</t>
+                            <t t-else="">Válida hasta:</t>
+                        </strong>
+                         <span id="ecf_exp_date" t-field="self.l10n_do_ncf_expiration_date"/>
+                    </span>
+                </div>
+                </div>
+                <div class="col-9 text-right" style="margin-top:22px;" t-field="self.company_id.report_header" name="moto"/>
+            </div>
+        
+            </div>
+              <!--PAge-->
+            <div class="page">
+              <div class="row">
+                <t t-set="vat_len" t-value="len(self.partner_id.vat) if self.partner_id.vat else 0"/>
+                <div class="col-auto col-7 mw-100 mb-2">
+                    <strong>
+                        <t t-if="vat_len == 9">RNC:</t>
+                        <t t-elif="vat_len == 11">Cédula:</t>
+                        <t t-else="">ID Cliente:</t>
+                    </strong>
+                    <span class="m-0" t-esc="self.partner_id.vat or ''"/>
+                    <br/>
+                    <strong>
+                        <t t-if="vat_len == 9">Razón Social:</t>
+                        <t t-else="">Nombre:</t>
+                    </strong>
+                    <t t-if="self.partner_id.is_company or not self.partner_id.parent_id">
+                        <span class="m-0" t-field="self.partner_id.name"/>
+                        <br/>
+                        <t t-if="self.partner_id.phone">
+                            <strong>Tel.:</strong>
+                            <span t-field="self.partner_id.phone"/>
+                            <t t-if="self.partner_id.mobile">
+                                <span> / </span>
+                            </t>
+                        </t>
+                        <t t-if="self.partner_id.mobile">
+                            <strong>Cel.:</strong>
+                            <span t-field="self.partner_id.mobile" widget="phone"/>
+                        </t>
+                    </t>
+                    <t t-else="">
+                        <t t-set="commercial_partner_id" t-value="self.partner_id.commercial_partner_id"/>
+                        <span class="m-0" t-field="commercial_partner_id.name"/>
+                        <br/>
+                        <strong>Contacto:</strong>
+                        <span t-field="self.partner_id.name"/>
+                        <br/>
+                        <t t-if="commercial_partner_id.phone">
+                            <strong>Tel.:</strong>
+                            <span t-field="commercial_partner_id.phone"/>
+                            <t t-if="commercial_partner_id.mobile">
+                                <span>/</span>
+                            </t>
+                        </t>
+                        <t t-if="commercial_partner_id.mobile">
+                            <strong>Cel.:</strong>
+                            <span t-field="commercial_partner_id.mobile" widget="phone"/>
+                        </t>
+                    </t>
+                    <span t-if="self.partner_id.street" class="m-0" t-field="self.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;], &quot;no_marker&quot;: True}"/>
+                <!--<div class="col-3">-->
+                <!--  RNC: <span t-field="self.partner_id.vat"/><br/>-->
+                <!--  <div t-if="self.l10n_latam_document_number">-->
+                <!--    NCF: <span t-field="self.l10n_latam_document_number"/>-->
+                <!--  </div>-->
+                <!--  <span t-esc="self.partner_id.name"/>-->
+                <!--</div>-->
+                <!--<div class="col-3" t-if="self.l10n_latam_document_type_id">-->
+                <!--  <b>Factura de <span t-field="self.l10n_latam_document_type_id.name"/></b>-->
+                <!--</div>-->
+                </div>
+              </div>
+
+              <br/>
+              
+              <table class="sm" width="100%">
+                <thead>
+                  <tr>
+                    <th >Productos</th>
+                    <th class="text-left pr-3">Cant.</th>
+                    <th class="text-right pr-3">Precio Unitario</th>
+                    <th width="80px" class="text-right">Subtotal</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <t t-foreach="self.invoice_line_ids" t-as="order">
+                    <tr>
+                      <td><t t-esc="order.name"/></td>
+                      <td class="text-left"><t t-esc="order.quantity"/></td>
+                      <td class="text-right pr-3"><t t-esc="order.price_unit"/></td>
+                      <td class="text-right"><t t-esc="order.price_subtotal"/></td>
+                    </tr>
+                  </t>
+                </tbody>
+              </table>
+              <br/>
+            <div class="text-right">
+              <span><b>Subtotal:</b> <t t-esc="self.amount_untaxed"/></span><br/>
+              <span><b>Total ITBIS:</b> <t t-esc="self.amount_tax"/></span><br/>
+              <span><b>Total a PAGAR:</b> <t t-esc="self.amount_total"/></span>
+            </div>
+
+            </div>
+            <div t-attf-class="footer o_standard_footer o_company_#{self.company_id.id}_layout">
+            <div class="text-center" style="border-top: 1px solid black;">
+                <ul class="list-inline mb4">
+                    <!-- using the list-inline-item class from bootstrap causes weird behaviours in pdf report
+                         adding d-inline class fixes the problem-->
+                    <li t-if="self.company_id.phone" class="list-inline-item d-inline"><span class="o_force_ltr" t-field="self.company_id.phone"/></li>
+                    <li t-if="self.company_id.email" class="list-inline-item d-inline"><span t-field="self.company_id.email"/></li>
+                    <li t-if="self.company_id.website" class="list-inline-item d-inline"><span t-field="self.company_id.website"/></li>
+                </ul>
+
+                <div name="financial_infos">
+                    <span t-field="self.company_id.report_footer"/>
+                </div>
+              </div>
+            </div>
+          </t>
+        </t>
+      </t>
+  </template>
+</odoo>
+

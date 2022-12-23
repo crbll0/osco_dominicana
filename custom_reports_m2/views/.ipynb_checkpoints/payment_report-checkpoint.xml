@@ -1,0 +1,163 @@
+<odoo>
+  <data>
+      
+    <template id="report_new_payment">
+	    <!--<t t-call="web.html_container">-->
+        <t t-foreach="docs" t-as="o">
+        <t t-call="web.basic_layout">
+          
+           <t t-set="o" t-value="o.with_context(lang=lang)"/>
+           <div class="header">
+             <div class="row">
+                <div class="col-3 mb4">
+                    <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="max-height: 45px;" alt="Logo"/>
+                </div>
+                <div class="col-9 text-right" style="margin-top:22px;" t-field="o.company_id.report_header" name="moto"/>
+            </div>
+            <div t-if="o.company_id.logo or o.company_id.report_header" class="row zero_min_height">
+                <div class="col-12">
+                    <div style="border-bottom: 1px solid black;"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6" name="company_address">
+                    <span t-if="o.company_id.company_details" t-field="o.company_id.company_details"/>
+                </div>
+            </div>
+            <!--<div class="row">-->
+            <!--    <div class="col-3 mb4">-->
+            <!--        <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="max-height: 94px;" alt="Logo"/>-->
+            <!--    </div>-->
+            <!--    <div class="row" style="margin-left: -75px; font-size: 14px;">-->
+            <!--      <div class="col-" name="company_address">-->
+            <!--      <div t-field="o.company_id.partner_id" t-options="{'widget': 'contact', 'fields': ['address', 'name'], 'no_marker': true}"/>-->
+            <!--    </div>-->
+            <!--    </div>-->
+            <!--</div>-->
+          </div>
+            <div class="page">
+                <h3><strong>Payment Receipt: <span t-field="o.name"/></strong></h3>
+                <div class="mb-4 mt-3">
+                    <div class="row">
+                        <div class="col-6" t-if="o.date">
+                            Payment Date: <span t-field="o.date"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6" t-if="o.partner_type">
+                            <t t-if="o.partner_type == 'customer'">
+                                Customer:
+                            </t>
+                            <t t-if="o.partner_type == 'supplier'">
+                                Vendor:
+                            </t><span t-field="o.partner_id"/>
+                        </div>
+                        <div class="col-6" t-if="o.payment_method_id">
+                            Payment Method: <span t-field="o.payment_method_id.name"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6" t-if="o.amount">
+                            Payment Amount: <span t-field="o.amount" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                         </div>
+                        <div class="col-6" t-if="o.ref">
+                            Memo: <span t-field="o.ref"/>
+                         </div>
+                    </div>
+                </div>
+
+                <t t-set="partials" t-value="o.move_id._get_reconciled_invoices_partials()"/>
+                <t t-set="invoices" t-value="{partial[2].move_id for partial in partials}"/>
+                <!-- Check if invoices include different currencies -->
+                <t t-foreach="invoices" t-as="inv">
+                    <t t-if="any(inv.currency_id != par[2].currency_id for par in inv._get_reconciled_invoices_partials())" t-set="otherCurrency" t-value="True"/>
+                </t>
+
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th><span>Invoice Date</span></th>
+                            <th><span>Invoice Number</span></th>
+                            <th><span>Reference</span></th>
+                            <!-- Add a column if there are different currencies -->
+                            <th t-if="otherCurrency" class="text-right"><span>Amount In Currency</span></th>
+                            <th class="text-right"><span>Amount</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="invoices" t-as="inv">
+                            <!-- MOVE -->
+                            <t t-if="inv.move_type != 'entry'">
+                                <tr>
+                                    <td><span t-field="inv.invoice_date"/></td>
+                                    <td><span t-field="inv.name"/></td>
+                                    <td><span t-field="inv.ref"/></td>
+                                    <td t-if="otherCurrency"/>
+                                    <td class="text-right"><span t-field="inv.amount_total"/></td>
+                                </tr>
+                                <!-- PAYMENTS/REVERSALS -->
+                                <tr t-foreach="inv._get_reconciled_invoices_partials()" t-as="par">
+                                    <t t-set="payment" t-value="par[2].move_id"/>
+                                    <td><span t-field="payment.date"/></td>
+                                    <td><span t-field="payment.name"/></td>
+                                    <td><span t-field="payment.ref"/></td>
+                                    <t t-set="amountPayment" t-value="-payment.amount_total"/>
+                                    <t t-set="amountInvoice" t-value="-par[1]"/>
+                                    <t t-set="currencyPayment" t-value="payment.currency_id"/>
+                                    <t t-set="currencyInvoice" t-value="inv.currency_id"/>
+                                    <!-- Fill the column "Amount In Currency" only if necessary -->
+                                    <td t-if="otherCurrency" class="text-right"><span t-if="currencyPayment != currencyInvoice" t-esc="amountPayment" t-options="{'widget': 'monetary', 'display_currency': currencyPayment}"/></td>
+                                    <td class="text-right"><span t-esc="amountInvoice" t-options="{'widget': 'monetary', 'display_currency': currencyInvoice}"/></td>
+                                </tr>
+                                <!-- BALANCE -->
+                                <tr>
+                                    <td/>
+                                    <td><strong>Due Amount for <span t-field="inv.name"/></strong></td>
+                                    <td/>
+                                    <td t-if="otherCurrency"/>
+                                    <td class="text-right"><strong><span t-field="inv.amount_residual"/></strong></td>
+                                </tr>
+                            </t>
+                        </t>
+                    </tbody>
+                </table>
+                <div t-attf-class="footer o_standard_footer o_company_#{o.company_id.id}_layout">
+                  <div class="text-center" style="border-top: 1px solid black;">
+                    <ul class="list-inline mb4">
+                    <!--  using the list-inline-item class from bootstrap causes weird behaviours in pdf report
+                                             adding d-inline class fixes the problem -->
+<!--                     <li t-if="o.company_id.phone" class="list-inline-item d-inline">
+                    <span class="o_force_ltr" t-field="o.company_id.phone"/>
+                    </li>
+                    <li t-if="o.company_id.email" class="list-inline-item d-inline">
+                    <span t-field="o.company_id.email"/>
+                    </li>
+                    <li t-if="o.company_id.website" class="list-inline-item d-inline">
+                    <span t-field="o.company_id.website"/>
+                    </li>
+                    <li t-if="o.company_id.vat" class="list-inline-item d-inline">
+                    <t t-esc="o.company_id.country_id.vat_label or 'Tax ID'"/>
+                    :
+                    <span t-field="o.company_id.vat"/>
+                    </li> -->
+                    </ul>
+                    <div name="financial_infos">
+                      <span t-field="o.company_id.report_footer"/>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </t>
+        </t>
+      <!--</t>-->
+    </template>
+      <report
+      id="basic_payment_new"
+      model="account.payment"
+      string="Pago 2/m"
+      report_type="qweb-pdf"
+      name="custom_reports_m2.report_new_payment"
+      paperformat="custom_reports_m2.custom_format_account_modify"
+    />
+  </data>
+</odoo>
