@@ -1,0 +1,230 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-12-23 16:07+0000\n"
+"PO-Revision-Date: 2022-12-23 16:12+0000\n"
+"Last-Translator: \n"
+"Language-Team: Spanish (Dominican Republic)\n"
+"Language: es-DO\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"X-Loco-Source-Locale: es_DO\n"
+"X-Loco-Parser: loco_parse_po\n"
+"X-Generator: Loco https://localise.biz/"
+
+#. module: custom_reports_m2
+#: model_terms:ir.ui.view,arch_db:custom_reports_m2.report_new_account
+msgid ""
+"<span groups=\"account.group_show_line_subtotals_tax_excluded\">Amount</span>"
+"\n"
+"                                    <span groups=\"account."
+"group_show_line_subtotals_tax_included\">Total Price</span>"
+msgstr ""
+"<span groups=\"account.group_show_line_subtotals_tax_excluded\">"
+"Importe</span>\n"
+"                                    <span groups=\"account."
+"group_show_line_subtotals_tax_included\">Precio Total</span>"
+
+#. module: custom_reports_m2
+#: model_terms:ir.ui.view,arch_db:custom_reports_m2.report_new_picking
+msgid "<span><strong>Customer Address:</strong></span>"
+msgstr "Dirección del cliente:"
+
+#. module: custom_reports_m2
+#: model_terms:ir.ui.view,arch_db:custom_reports_m2.report_new_picking
+msgid "<span><strong>Delivery Address:</strong></span>"
+msgstr "Dirección de entrega:"
+
+#. module: custom_reports_m2
+#: model_terms:ir.ui.view,arch_db:custom_reports_m2.report_new_picking
+msgid "<span><strong>Vendor Address:</strong></span>"
+msgstr "Dirección del proveedor:"
+
+#. module: custom_reports_m2
+#: model_terms:ir.ui.view,arch_db:custom_reports_m2.report_new_picking
+msgid "<span><strong>Warehouse Address:</strong></span>"
+msgstr "Dirección del almacén:"
+
+#. module: custom_reports_m2
+#: model_terms:ir.ui.view,arch_db:custom_reports_m2.report_new_payment
+msgid "<span>Amount In Currency</span>"
+msgstr "Importe en moneda"
+
+#. module: custom_reports_m2
+#: model_terms:ir.ui.view,arch_db:custom_reports_m2.report_new_payment
+msgid "<span>Amount</span>"
+msgstr "Monto"
+
+#. module: custom_reports_m2
+#: model_terms:ir.ui.view,arch_db:custom_reports_m2.report_new_account
+msgid "<span>Description</span>"
+msgstr "<span>Descripción</span>"
+
+#. module: custom_reports_m2
+#: model_terms:ir.ui.view,arch_db:custom_reports_m2.report_new_account
+msgid "<span>Disc.%</span>"
+msgstr "<span>Desc.%</span>"
+
+#. module: custom_reports_m2
+#: model_terms:ir.ui.view,arch_db:custom_reports_m2.report_new_payment
+msgid "<span>Invoice Date</span>"
+msgstr "Fecha de la factura"
+
+#. module: custom_reports_m2
+#: model_terms:ir.ui.view,arch_db:custom_reports_m2.report_new_payment
+msgid "<span>Invoice Number</span>"
+msgstr "Número de factura"
+
+#. module: custom_reports_m2
+#: model_terms:ir.ui.view,arch_db:custom_reports_m2.report_new_account
+msgid "<span>Quantity</span>"
+msgstr "<span>Cantidad</span>"
+
+#. module: custom_reports_m2
+#: model_terms:ir.ui.view,arch_db:custom_reports_m2.report_new_payment
+msgid "<span>Reference</span>"
+msgstr "Referencia"
+
+#. module: custom_reports_m2
+#: model_terms:ir.ui.view,arch_db:custom_reports_m2.report_new_picking
+msgid "<span>Remaining quantities not yet delivered:</span>"
+msgstr "Cantidades restantes aún no entregadas:"
+
+#. module: custom_reports_m2
+#: model_terms:ir.ui.view,arch_db:custom_reports_m2.report_new_account
+msgid "<span>Taxes</span>"
+msgstr "<span>Impuestos</span>"
+
+#. module: custom_reports_m2
+#: model_terms:ir.ui.view,arch_db:custom_reports_m2.report_new_account
+msgid "<span>Unit Price</span>"
+msgstr "<span>Precio Unitario</span>"
+
+#. module: custom_reports_m2
+#: model_terms:ir.ui.view,arch_db:custom_reports_m2.report_new_account
+msgid "<strong class=\"mr16\">Subtotal</strong>"
+msgstr "Total parcial"
+
+#. module: custom_reports_m2
+#: model_terms:ir.ui.view,arch_db:custom_reports_m2.report_new_account
+msgid "<strong>Amount Due</strong>"
+msgstr "<strong>Importe adeudado</strong>"
+
+#. module: custom_reports_m2
+#: model_terms:ir.ui.view,arch_db:custom_reports_m2.report_new_picking
+msgid "<strong>Delivered</strong>"
+msgstr "Entregado"
+
+#. module: custom_reports_m2
+#: model_terms:ir.ui.view,arch_db:custom_reports_m2.report_new_picking
+msgid "<strong>Order:</strong>"
+msgstr "Ordenar:"
+
+#. module: custom_reports_m2
+#: model_terms:ir.ui.view,arch_db:custom_reports_m2.report_new_picking
+msgid "<strong>Ordered</strong>"
+msgstr "Ordenado"
+
+#. module: custom_reports_m2
+#: model_terms:ir.ui.view,arch_db:custom_reports_m2.report_new_picking
+msgid "<strong>Product</strong>"
+msgstr "Producto"
+
+#. module: custom_reports_m2
+#: model_terms:ir.ui.view,arch_db:custom_reports_m2.report_new_picking
+msgid "<strong>Quantity</strong>"
+msgstr "Cantidad"
+
+#. module: custom_reports_m2
+#: model_terms:ir.ui.view,arch_db:custom_reports_m2.report_new_picking
+msgid "<strong>Shipping Date:</strong>"
+msgstr "Fecha de envío:"
+
+#. module: custom_reports_m2
+#: model_terms:ir.ui.view,arch_db:custom_reports_m2.report_new_picking
+msgid "<strong>Signature</strong>"
+msgstr "Fecha de envío:"
+
+#. module: custom_reports_m2
+#: model:ir.actions.report,name:custom_reports_m2.basic_picking_new
+msgid "Conduce 2/m"
+msgstr ""
+
+#. module: custom_reports_m2
+#: model_terms:ir.ui.view,arch_db:custom_reports_m2.report_new_payment
+msgid "Customer:"
+msgstr ""
+"Cliente:\n"
+
+#. module: custom_reports_m2
+#: model_terms:ir.ui.view,arch_db:custom_reports_m2.report_new_payment
+msgid "Due Amount for"
+msgstr ""
+"Importe adeudado por\n"
+
+#. module: custom_reports_m2
+#: model:ir.actions.report,name:custom_reports_m2.basic_layout_new
+msgid "Factura 2/m"
+msgstr ""
+
+#. module: custom_reports_m2
+#: model_terms:ir.ui.view,arch_db:custom_reports_m2.report_new_account 
+#: model_terms:ir.ui.view,arch_db:custom_reports_m2.report_new_payment 
+#: model_terms:ir.ui.view,arch_db:custom_reports_m2.report_new_picking
+msgid "Logo"
+msgstr ""
+
+#. module: custom_reports_m2
+#: model_terms:ir.ui.view,arch_db:custom_reports_m2.report_new_picking
+msgid "Lot/Serial Number"
+msgstr ""
+"Número de lote/serie\n"
+
+#. module: custom_reports_m2
+#: model_terms:ir.ui.view,arch_db:custom_reports_m2.report_new_payment
+msgid "Memo:"
+msgstr ""
+"Memo:\n"
+
+#. module: custom_reports_m2
+#: model:ir.actions.report,name:custom_reports_m2.basic_payment_new
+msgid "Pago 2/m"
+msgstr ""
+
+#. module: custom_reports_m2
+#: model_terms:ir.ui.view,arch_db:custom_reports_m2.report_new_account
+msgid "Paid on"
+msgstr "Pagado en"
+
+#. module: custom_reports_m2
+#: model_terms:ir.ui.view,arch_db:custom_reports_m2.report_new_payment
+msgid "Payment Amount:"
+msgstr ""
+"Monto del pago:\n"
+
+#. module: custom_reports_m2
+#: model_terms:ir.ui.view,arch_db:custom_reports_m2.report_new_payment
+msgid "Payment Date:"
+msgstr ""
+"Fecha de pago:\n"
+
+#. module: custom_reports_m2
+#: model_terms:ir.ui.view,arch_db:custom_reports_m2.report_new_payment
+msgid "Payment Method:"
+msgstr ""
+"Método de pago:\n"
+
+#. module: custom_reports_m2
+#: model_terms:ir.ui.view,arch_db:custom_reports_m2.report_new_payment
+msgid "Payment Receipt:"
+msgstr ""
+"Recibo de pago:\n"
+
+#. module: custom_reports_m2
+#: model_terms:ir.ui.view,arch_db:custom_reports_m2.report_new_payment
+msgid "Vendor:"
+msgstr ""
+"Vendedor:\n"
