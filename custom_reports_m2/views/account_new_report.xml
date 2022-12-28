@@ -2,25 +2,15 @@
   <data>
       
     <template id="report_new_account">
-	    <!--<t t-call="web.html_container">-->
+ <!--<t t-call="web.html_container">-->
         <t t-foreach="docs" t-as="o">
         <t t-call="web.basic_layout">
           
            <t t-set="o" t-value="o.with_context(lang=lang)"/>
            <div class="header">
-            <!--<div class="row">-->
-            <!--    <div class="col-3 mb4">-->
-            <!--        <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="max-height: 94px;" alt="Logo"/>-->
-            <!--    </div>-->
-            <!--    <div class="row" style="margin-left: -75px; font-size: 14px;">-->
-            <!--      <div class="col-" name="company_address">-->
-            <!--      <div t-field="o.company_id.partner_id" t-options="{'widget': 'contact', 'fields': ['address', 'name'], 'no_marker': true}"/>-->
-            <!--    </div>-->
-            <!--    </div>-->
-            <!--</div>-->
           </div>
             <t t-set="o" t-value="o.with_context(lang=lang)"/>
-            <t t-set="custom_header" t-value="'l10n_do_accounting.custom_header'"/>
+            <t t-set="custom_header" t-value="'l10n_do_accounting.custom_header'" style="font-size: 192px;"/>
            <t t-set="ecf_representation" t-value="o.is_ecf_invoice"/>
            <t t-set="is_l10n_do_invoice" t-value="o.l10n_latam_use_documents and o.company_id.country_id and o.country_code == 'DO'"/>
           <t t-set="forced_vat" t-value="o.fiscal_position_id.foreign_vat"/>
@@ -28,12 +18,14 @@
 	   <strong>
 		
               <!--PAge-->
-	 <div id="informations" class="row mt36 mb32" style="font-size:small;">
+        <div id="informations" class="row mt36 mb32" style="font-size:small;">
 
             <!--Company info-->
             <div class="col-6">
-                <div style="font-size: 30px;">
-                    <strong t-field="o.company_id.partner_id.name"/>
+                <div style="">
+                    <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="max-height: 70px;" alt="Logo"/>
+
+                    <!--<strong t-field="o.company_id.partner_id.name"/>-->
                 </div>
                 <span t-field="o.company_id.partner_id" class="text-muted" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;], &quot;no_marker&quot;: true}"/>
                 <span>
@@ -143,12 +135,14 @@
             </div>
         </div>
         <br/>
+        
         <div class="page" style="font-size:small;">
+          
 
               <br/>
               <t t-set="display_discount" t-value="any(l.discount for l in o.invoice_line_ids)"/>
 
-                    <table width="100%" class="table-sm" style="margin-top: -60px;">
+                    <table width="100%" class="table-sm">
                         <thead style="border-bottom: 1px solid black;border-top:1px solid black;">
                             <tr>
                                 <th name="th_description" class="text-left"><span>Description</span></th>

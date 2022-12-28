@@ -5,9 +5,25 @@
 	    <!--<t t-call="web.html_container">-->
         <t t-foreach="docs" t-as="o">
         <t t-call="web.basic_layout">
-          
+          <div id="informations" class="row mt36 mb32" style="font-size:small;">
+
+            <!--Company info-->
+            <div class="col-6">
+                <div style="">
+                    <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="max-height: 70px;" alt="Logo"/>
+
+                    <!--<strong t-field="o.company_id.partner_id.name"/>-->
+                </div>
+                <span t-field="o.company_id.partner_id" class="text-muted" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;], &quot;no_marker&quot;: true}"/>
+                <span>
+                    <strong>RNC:</strong>
+                    <span t-if="o.company_id.vat" t-field="o.company_id.vat"/>
+                </span>
+                <br/>
+            </div>
+          </div>
            <t t-set="o" t-value="o.with_context(lang=lang)"/>
-           <div class="header">
+           <div class="header" style="font-size:small;">
              <div class="row">
                 <div class="col-3 mb4">
                     <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="max-height: 45px;" alt="Logo"/>
@@ -35,7 +51,7 @@
             <!--    </div>-->
             <!--</div>-->
           </div>
-            <div class="page">
+            <div class="page" style="font-size:small;">
                 <h3><strong>Payment Receipt: <span t-field="o.name"/></strong></h3>
                 <div class="mb-4 mt-3">
                     <div class="row">
