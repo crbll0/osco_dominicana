@@ -173,7 +173,7 @@
       string="Pago 2/m"
       report_type="qweb-pdf"
       name="custom_reports_m2.report_new_payment"
-      paperformat="custom_reports_m2.custom_format_account_modify"
+      paperformat= "custom_reports_m2.custom_format_a5"
     />
   </data>
 </odoo>
