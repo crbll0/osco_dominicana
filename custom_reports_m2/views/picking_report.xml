@@ -2,12 +2,12 @@
   <data>
       
     <template id="report_new_picking">
-	   <t t-call="web.html_container">
+	<t t-call="web.html_container">
         <t t-foreach="docs" t-as="o">
         <t t-call="web.basic_layout">
-          <div class="header"><br/></div>
+          <div class="header"></div>
           <div id="informations" class="row mt36 mb32" style="font-size:small;">
-
+            
             <!--Company info-->
             <div class="col-6">
                 <div style="">
@@ -15,6 +15,7 @@
 
                     <!--<strong t-field="o.company_id.partner_id.name"/>-->
                 </div>
+                
                 <span t-field="o.company_id.partner_id" class="text-muted" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;], &quot;no_marker&quot;: true}"/>
                 <span>
                     <strong>RNC:</strong>
@@ -61,6 +62,12 @@
                 </t>
                 
                 <div class="page" style="font-size:small;">
+                    <h2 class="text-center">
+                      <t t-if="o.picking_type_id.code == 'incoming'">Conduce de Entrada</t>
+                      <t t-if="o.picking_type_id.code == 'internal'">Transferencia Interna</t>
+                      <t t-if="o.picking_type_id.code == 'outgoing'">Conduce de Salida</t>
+                      <t t-if="o.picking_type_id.code == 'mrp_operation'">Conduce de Fabricación</t>
+                    </h2>
                     <h2>
                         <span t-field="o.name"/>
                     </h2>
@@ -266,7 +273,6 @@
       string="Conduce 2/m"
       report_type="qweb-pdf"
       name="custom_reports_m2.report_new_picking"
-      paperformat="custom_reports_m2.custom_format_account_modify"
     />
   </data>
 </odoo>
