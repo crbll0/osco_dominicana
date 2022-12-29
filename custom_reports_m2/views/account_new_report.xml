@@ -315,7 +315,7 @@
       string="Factura 2/m"
       report_type="qweb-pdf"
       name="custom_reports_m2.report_new_account"
-      paperformat= "custom_reports_m2.custom_format_a5"
+      paperformat="custom_reports_m2.custom_format_a5"
     />
   </data>
 </odoo>
