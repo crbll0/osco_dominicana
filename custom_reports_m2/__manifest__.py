@@ -17,7 +17,8 @@
     'depends': ['base', 'account', 'l10n_do_accounting', 'stock'],
     'data': [
         # 'security/ir.model.access.csv',
-        'views/paper_format.xml',
+        #'views/paper_format.xml',
+        'views/a5_format.xml',
         'views/picking_report.xml',
         'views/payment_report.xml',
 	# 'views/account_move_inherit.xml',

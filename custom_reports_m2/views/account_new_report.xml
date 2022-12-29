@@ -2,7 +2,7 @@
   <data>
       
     <template id="report_new_account">
- <!--<t t-call="web.html_container">-->
+	<!--<t t-call="web.html_container">-->
         <t t-foreach="docs" t-as="o">
         <t t-call="web.basic_layout">
           
@@ -72,6 +72,11 @@
                     </strong>
                     <span id="ecf_exp_date" t-field="o.l10n_do_ncf_expiration_date"/>
                 </span>
+                <br/>
+                <span t-if="o.invoice_payment_term_id" name="invoice_payment_term_id">
+                  <strong>TERMINOS:</strong>
+                    <span t-field="o.invoice_payment_term_id"/>
+                </span>
             </div>
         </div>
         <br/>
@@ -125,9 +130,14 @@
                 </t>
                 <span t-if="o.partner_id.street" class="m-0" t-field="o.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;], &quot;no_marker&quot;: True}"/>
             </div>
+            
             <div class="col-auto col-2 mw-100 mb-2" t-if="o.invoice_origin" name="origin">
                 <strong>Origen:</strong>
                 <p class="m-0" t-field="o.invoice_origin"/>
+                <strong>TERMINOS:</strong>
+                <p t-if="o.invoice_payment_term_id" class="m-0" >
+                        <span t-field="o.invoice_payment_term_id"/>
+                    </p>
             </div>
             <div class="col-auto col-2 mw-100 mb-2" t-if="o.ref" name="reference">
                 <strong>Referencia:</strong>
@@ -251,6 +261,27 @@
                             </div>
                         </div>
                     </div>
+                    <p t-if="o.move_type in ('out_invoice', 'in_refund') and o.payment_reference" name="payment_communication">
+                        Please use the following communication for your payment : <b><span t-field="o.payment_reference"/></b>
+                    </p>
+                    <p t-if="o.invoice_payment_term_id" name="payment_term">
+                        <span t-field="o.invoice_payment_term_id.note"/>
+                    </p>
+                    <div t-if="not is_html_empty(o.narration)" name="comment">
+                        <span t-field="o.narration"/>
+                    </div>
+                    <p t-if="not is_html_empty(o.fiscal_position_id.note)" name="note">
+                        <span t-field="o.fiscal_position_id.note"/>
+                    </p>
+                    <p t-if="o.invoice_incoterm_id" name="incoterm">
+                        <strong>Incoterm: </strong><span t-field="o.invoice_incoterm_id.code"/> - <span t-field="o.invoice_incoterm_id.name"/>
+                    </p>
+                    <div id="qrcode" t-if="o.display_qr_code and o.amount_residual &gt; 0">
+                        <p t-if="qr_code_urls.get(o.id)">
+                            <strong class="text-center">Scan me with your banking app.</strong><br/><br/>
+                            <img class="border border-dark rounded" t-att-src="qr_code_urls[o.id]"/>
+                        </p>
+                    </div>
                <div t-attf-class="footer o_standard_footer o_company_#{o.company_id.id}_layout">
                   <div class="text-center" style="border-top: 1px solid black;">
                     <ul class="list-inline mb4">
@@ -289,7 +320,7 @@
       string="Factura 2/m"
       report_type="qweb-pdf"
       name="custom_reports_m2.report_new_account"
-      paperformat="custom_reports_m2.custom_format_account_modify"
+      paperformat="custom_reports_m2.custom_format_a5"
     />
   </data>
 </odoo>
