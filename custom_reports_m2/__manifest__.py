@@ -18,7 +18,7 @@
     'data': [
         # 'security/ir.model.access.csv',
         #'views/paper_format.xml',
-        'views/custom_reports_m2.custom_format_a5',
+        'views/custom_format_a5',
         'views/picking_report.xml',
         'views/payment_report.xml',
 	# 'views/account_move_inherit.xml',
