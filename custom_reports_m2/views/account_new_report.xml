@@ -72,6 +72,11 @@
                     </strong>
                     <span id="ecf_exp_date" t-field="o.l10n_do_ncf_expiration_date"/>
                 </span>
+                <br/>
+                <span t-if="o.invoice_payment_term_id" name="invoice_payment_term_id">
+                  <strong>TERMINOS:</strong>
+                    <span t-field="o.invoice_payment_term_id"/>
+                </span>
             </div>
         </div>
         <br/>
