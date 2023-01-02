@@ -1,7 +1,7 @@
 <odoo>
     <data>
 
-        <template inherit_id="sale.report_saleorder_document" id="report_saleorder_document">
+        <template id="report_saleorder_document" inherit_id="sale.report_saleorder_document" >
           <xpath expr="//div[@id='informations']" position="inside">
               <div t-if="doc.partner2_id.name" class="col-auto col-3 mw-100 mb-2">
                     <strong>Atencion a:</strong>
