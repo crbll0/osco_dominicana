@@ -1,0 +1,16 @@
+<odoo>
+  <data>
+   
+    <record model="ir.ui.view" id="view_order_form">
+      <field name="name">view_order_form</field>
+      <field name="model">sale.order</field>
+      <field name="inherit_id" ref="sale.view_order_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//group[@name='partner_details']" position="inside">
+          <field name="partner2_id" domain="[('parent_id', '=', partner_id)]" attrs="{'invisible': [('partner_id','=', False)]}" options="{'create': False, 'create_edit': False}"/>
+        </xpath>
+      </field>
+    </record>
+
+  </data>
+</odoo>
